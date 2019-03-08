@@ -1,0 +1,6 @@
+service_id,service_name,monday,tuesday,wednesday,thursday,friday,saturday,sunday,start_date,end_date
+c_4299_b_4263_d_64,Year Round Service - 2018 (Sunday only),0,0,0,0,0,0,1,20180101,20190902
+c_4299_b_4263_d_63,Year Round Service - 2018 (Monday-Saturday),1,1,1,1,1,1,0,20180101,20190902
+c_4299_b_4263_d_48,Year Round Service - 2018,0,0,0,0,1,1,0,20180101,20190902
+c_4299_b_4263_d_32,Year Round Service - 2018 (Saturday only),0,0,0,0,0,1,0,20180101,20190902
+c_4299_b_4263_d_31,Year Round Service - 2018 (Monday-Friday),1,1,1,1,1,0,0,20180101,20190902
