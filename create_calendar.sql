@@ -72,3 +72,40 @@ LANGUAGE plpgsql;
 
 -- maybe use this to get day of week (or isodow?)
 select extract(dow from date '2016-12-18');
+
+
+-- not working by day of week
+
+-- select service_id, max(date), count(*) from  public.scheduled_calendar group by service_id;
+-- select *, extract(dow from date scheduled_calendar.date) AS dow from  public.scheduled_calendar order by service_id, date;
+
+  
+
+-- select public.create_scheduled_calendar();
+CREATE OR REPLACE FUNCTION create_scheduled_calendar()
+    RETURNS void AS $$
+DECLARE 
+    rec_cal   RECORD;
+	num_dates INT;
+    cur_cal CURSOR FOR SELECT * FROM calendar;
+BEGIN
+	DELETE FROM public.scheduled_calendar;
+	OPEN cur_cal;
+    LOOP
+        FETCH cur_cal INTO rec_cal;
+        EXIT WHEN NOT FOUND;
+		
+		SELECT DATE_PART('day', rec_cal.end_date::timestamp - rec_cal.start_date::timestamp) INTO num_dates;
+        
+		INSERT INTO scheduled_calendar(service_id,date)
+		SELECT rec_cal.service_id, rec_cal.start_date + s.a AS dates FROM generate_series(0,num_dates) AS s(a) 
+		WHERE (rec_cal.monday = true AND extract(dow from date (rec_cal.start_date + s.a))::integer = 0) 
+		OR    (rec_cal.tuesday = true AND extract(dow from date (rec_cal.start_date + s.a))::integer = 1); 
+    END LOOP;
+    -- Close the cursor
+    CLOSE cur_cal;
+END; $$
+LANGUAGE plpgsql;
+
+
+-- select extract(dow from date '2016-12-18') AS dow;
