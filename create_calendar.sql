@@ -38,7 +38,7 @@ select CURRENT_DATE + i
 from generate_series(date rec_cal.start_date - CURRENT_DATE, 
 date rec_cal.end_date - CURRENT_DATE ) i   
 
--- select * from  public.calendar_dates;
+-- select * from  public.calendar_dates; ssh-add ~/.ssh/github_rsa
 -- select * from  public.calendar;
 -- select service_id, max(date), count(*) from  public.scheduled_calendar group by service_id;
 
@@ -70,4 +70,5 @@ END; $$
 LANGUAGE plpgsql;
 
 
+-- maybe use this to get day of week (or isodow?)
 select extract(dow from date '2016-12-18');
