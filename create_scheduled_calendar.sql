@@ -1,3 +1,11 @@
+CREATE TABLE public.scheduled_calendar
+(
+    service_id varchar NOT NULL,
+    date date NOT NULL,
+    CONSTRAINT calendar_dates_pkey PRIMARY KEY (service_id, date)
+);
+
+
 CREATE OR REPLACE FUNCTION public.create_scheduled_calendar()
  RETURNS void
  LANGUAGE plpgsql
