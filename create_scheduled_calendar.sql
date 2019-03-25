@@ -27,7 +27,6 @@ BEGIN
         SELECT service_id, dates FROM (
             SELECT service_id, dates, extract(dow from dates) AS dow FROM (
                 SELECT rec_cal.service_id, rec_cal.start_date + s.a AS dates FROM generate_series(0,num_dates) AS s(a) 
-                --SELECT 'c_4299_b_4263_d_64' AS service_id, '2018-01-01'::date + s.a AS dates FROM generate_series(0,10) AS s(a) 
             ) AS datelist1
         ) AS datelist
         WHERE (rec_cal.monday = true AND datelist.dow = 1) 
