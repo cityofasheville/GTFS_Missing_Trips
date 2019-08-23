@@ -27,7 +27,7 @@ SELECT scheduled.trip_id, scheduled.route_short_name, scheduled.direction_id, sc
 	INNER JOIN gtfs.stops
 	ON stop_times.stop_id = stops.stop_id	
 	where date BETWEEN '2019-03-01' AND '2019-03-31'
-	and scheduled.departure_time is not null
+	and stop_times.departure_time is not null
 	-- and stop_sequence = 1
 	-- AND trips.trip_id = 't_179882_b_4263_tn_0' --and stop_times.stop_id = '759609'
 	order by route_short_name, scheduled_calendar.date, stop_times.departure_time
