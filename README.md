@@ -4,19 +4,39 @@
 Reads in files from scheduled bus routes and actual trips driven and finds missing trips.
 
 
-Currently, files must be loaded manually. Pgadmin or DBeaver work OK. load_csv_file.sql works if you are a superuser.
 
 ## Load schedules (yearly)
 Scheduled data is on Open Data Portal. (Search for GTFS) or http://data.trilliumtransit.com/gtfs/asheville-nc-us/asheville-nc-us.zip
+Tables needed:
+calendar
+calendar_dates
+routes
+stop_times
+stops
+trips
 
 Some stop_times have bad time formats (start with 24 instead of 00). Fix with convert_times_from_24_to_00.sql
 Then convert all the date, time and boolean fields.
 
 Run create_scheduled_calendar.sql to fill in scheduled_calendar.
+Then run the two update queries in add-del-holidays.sql
 
 ## Load live data (monthly)
 Live data comes from goswift.ly
+File has extra newlines on the end :(
+
 TODO: Use GTFS_Parser to load live data.
+
+  Currently, files must be loaded manually. 
+  Pgadmin: 
+    delete from current_data;
+    Right click current_data table, select Import/Export. 
+    Change to Import, find file, change header to yes.
+
+  DBeaver works except goswift.ly's weird date format (mm-dd-yy). Fix with regex: 's/(\d+)\-(\d+)\-(\d+)/20$3-$1-$2/'
+
+  load_csv_file.sql works if you are a superuser.
+
 
 Once data is loaded run DoingFinalOuterJoin.sql (change the dates.)
 

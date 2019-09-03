@@ -1,4 +1,4 @@
-CREATE TABLE public.scheduled_calendar
+CREATE TABLE gtfs.scheduled_calendar
 (
     service_id varchar NOT NULL,
     date date NOT NULL,
@@ -6,7 +6,7 @@ CREATE TABLE public.scheduled_calendar
 );
 
 
-CREATE OR REPLACE FUNCTION public.create_scheduled_calendar()
+CREATE OR REPLACE FUNCTION gtfs.create_scheduled_calendar()
  RETURNS void
  LANGUAGE plpgsql
 AS $function$
@@ -15,7 +15,7 @@ DECLARE
 	num_dates INT;
     cur_cal CURSOR FOR SELECT * FROM calendar;
 BEGIN
-	DELETE FROM public.scheduled_calendar;
+	DELETE FROM gtfs.scheduled_calendar;
 	OPEN cur_cal;
     LOOP
         FETCH cur_cal INTO rec_cal;
