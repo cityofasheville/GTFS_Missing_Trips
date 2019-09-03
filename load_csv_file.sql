@@ -1,3 +1,4 @@
+-- https://stackoverflow.com/a/34884609
 CREATE OR REPLACE FUNCTION load_csv_file(
     target_table text,
     csv_path text,
