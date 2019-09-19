@@ -5,7 +5,8 @@ const readline = require('readline');
 const parse = require('csv-parse');
 const glob = require("glob");
 const path = require('path');
-require('dotenv').config()
+
+require('dotenv').config();
 
 //fileBasePath
 c = new Pool({
@@ -21,7 +22,7 @@ c = new Pool({
 const uploads = [
     {file:"/data/calendar.txt",table:"calendar"},     
 ];
-let sqlFile = fs.createWriteStream("./out.sql");
+const sqlFile = fs.createWriteStream("./out.sql");
 
 process.on('unhandledRejection', function errHandler (err) {
     console.error(err);
