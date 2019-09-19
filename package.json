@@ -1,5 +1,5 @@
 {
-  "name": "GTFS",
+  "name": "gtfs",
   "version": "1.0.0",
   "description": "Reads in files from scheduled bus routes and actual trips driven and finds missing trips.",
   "main": "index.js",

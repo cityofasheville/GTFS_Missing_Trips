@@ -37,7 +37,7 @@ function get_swiftly(start_date, end_date){
 
     const req = http.request(http_options, function (res) {
       res.on("data", function (chunk) {
-        parser.write(chunk.toString().replace(/\n\n/g,''));
+        parser.write(chunk.toString().replace(/\n\n/g,'')); //the replace is to get rid of extraneous newlines at end of Swiftly data
       });
       res.on("end", function () {
         parser.end();

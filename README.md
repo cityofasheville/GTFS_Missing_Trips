@@ -11,7 +11,7 @@ The rest of the tables hold the schedules in GTFS format.
 
 
 ## Load schedules (annually)
-Scheduled data is on Open Data Portal. (Search for GTFS) or http://data.trilliumtransit.com/gtfs/asheville-nc-us/asheville-nc-us.zip
+Scheduled data is on Open Data Portal. (Search for GTFS) or http://data.gtfstransit.com/gtfs/asheville-nc-us/asheville-nc-us.zip
 Tables needed:
 calendar
 calendar_dates
