@@ -7,10 +7,9 @@ async function run(){
   let myArgs = process.argv.slice(2);
   let start_date = myArgs[0] ? myArgs[0] : '09-16-2019';
   let end_date =   myArgs[1] ? myArgs[1] : '09-16-2019';
-  let current_data = await get_swiftly(start_date, end_date);
+  let current_data = [[0]]; // await get_swiftly(start_date, end_date);
 
-  // let gtfs = await get_gtfs(table_list);
-  let gtfs = [1,2,3]
+  let gtfs = await get_gtfs(table_list);
   load_db(current_data, gtfs);
 }
 run();
