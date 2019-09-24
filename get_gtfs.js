@@ -16,6 +16,8 @@ function get_gtfs(table_list){
       }
       response.pipe(file);
       response.on('end', () => {
+        console.log("Data fetched from Trillium");
+
         file.close();
         unzipFile(zipfilename,table_list)
         .then((res) => { resolve(res) } );

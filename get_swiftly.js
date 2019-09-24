@@ -3,8 +3,10 @@ const parse = require('csv-parse');
 
 require('dotenv').config();
 
-// Swiftly requires datestrings as MM-DD-YYYY (sigh)
+// Input datestrings are YYYY-MM-DD
 function get_swiftly(start_date, end_date){
+  start_date = swiftDate(start_date);
+  end_date = swiftDate(end_date);
   return new Promise(function(resolve, reject) {
     const output = [];
     const path = `/otp/art-asheville/csv-export?startDate=${start_date}&endDate=${end_date}`
@@ -40,6 +42,7 @@ function get_swiftly(start_date, end_date){
         parser.write(chunk.toString().replace(/\n\n/g,'')); //the replace is to get rid of extraneous newlines at end of Swiftly data
       });
       res.on("end", function () {
+        console.log("Data fetched from Swiftly");
         parser.end();
       });
       req.on('error', (e) => {
@@ -52,4 +55,10 @@ function get_swiftly(start_date, end_date){
     
   });
 }
+
+function swiftDate(inStr) {
+  // Convert datestrings from YYYY-MM-DD to Swiftly MM-DD-YYYY
+  return inStr.replace( /(\d{4})-(\d{2})-(\d{2})/, '$2-$3-$1')
+}
+
 module.exports = get_swiftly;
