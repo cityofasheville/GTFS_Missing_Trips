@@ -1,1 +1,0 @@
-sed 's/(\d+)\-(\d+)\-(\d+)/20$3-$1-$2/' art.csv > artfixed.csv

@@ -1,5 +1,5 @@
 const Pool = require('pg-pool');
-const fs = require("fs");
+const send_report = require("./send_report");
 
 require('dotenv').config();
 
@@ -24,8 +24,11 @@ async function load_db(current_data, gtfs, start_date, end_date) {
 
   // Create scheduled_calendar table
   await run_query("select gtfs.create_scheduled_calendar()");
-  let results = await run_query("select gtfs.output_report($1, $2)", [start_date, end_date]);
-  console.log(results.rows);
+  let results = await run_query(`
+  select trip_id,route_short_name,direction_id,stop_name,date,departure_time 
+  from gtfs.output_report($1, $2)`, 
+  [start_date, end_date]);
+  send_report(results.rows, start_date, end_date);
 
   // -------------------------------------------------------------
   async function build_queries(data, table_name, repair_function) {
@@ -52,13 +55,12 @@ async function load_db(current_data, gtfs, start_date, end_date) {
       },'');
       await run_query(query_string);
     });
-    console.log("Table ", table_name)
+    console.log("Table ", table_name);
   }
 
   async function run_query(query_string, params) {
     try {
       let results = await pool.query(query_string, params);
-      console.log("Table result ", results.fields[0]?results.fields[0].name:'', results.command, results.rowCount);
       return results;
     }
     catch(err) {
@@ -98,7 +100,7 @@ function fixTrilliumTime(inStr) {
 }
 
 function chunkArray(data){
-  //split data so we dont insert more that 100 rows at a time
+  //split data so we dont insert more that 1000 rows at a time
   var results = [];
   while (data.length) {
       results.push(data.splice(0, 1000));

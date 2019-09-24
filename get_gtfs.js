@@ -44,7 +44,6 @@ function unzipFile(zipfilename,table_list) {
       zipfile.on("entry", function(entry) {
         const table_name = entry.fileName.slice(0,-4); //rm .txt
         if (table_list.includes(table_name)) {
-          // csv-parse readable stream api
           const output = [];
           const parser = parse({
             delimiter: ','

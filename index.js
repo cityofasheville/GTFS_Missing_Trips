@@ -6,8 +6,8 @@ const load_db = require('./load_db');
 async function run(){
   let table_list = ['calendar','calendar_dates','routes','stop_times','stops','trips'];
   let myArgs = process.argv.slice(2);
-  let start_date = myArgs[0] ? myArgs[0] : '2019-09-16';
-  let end_date =   myArgs[1] ? myArgs[1] : '2019-09-16';
+  let start_date = myArgs[0];
+  let end_date =   myArgs[1];
 
   let current_data = await get_swiftly(start_date, end_date);
 
