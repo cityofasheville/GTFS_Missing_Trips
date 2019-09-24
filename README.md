@@ -1,13 +1,13 @@
 # GTFS
 ## Find missing trips
-Node.js program create a report of missing bus trips.
+*Node.js program to create a report of missing bus trips.*
 Reads in files from scheduled bus routes and actual trips driven.
 
 ## Setup
-Create a Postgres database with a schema named gtfs.
-Run Create_tables.sql, create_scheduled_calendar.sql, and output_report.sql to set up the database.
-Copy .env.example to a new file .env and fill in the database and website credentials.
-Install node.js and run 'npm install' in the program directory.
+1. Create a Postgres database with a schema named gtfs.
+1. Run Create_tables.sql, create_scheduled_calendar.sql, and output_report.sql to set up the database.
+1. Copy .env.example to a new file .env and fill in the database and website credentials.
+1. Install node.js and run 'npm install' in the program directory.
 
 ## To Run
 node .
@@ -15,15 +15,16 @@ This will create a *.csv file.
 
 # Data Sources
 ## GTFS Schedules (Trillium)
-Scheduled data is on Open Data Portal. (Search for GTFS) 
-http://data.trilliumtransit.com/gtfs/asheville-nc-us/asheville-nc-us.zip
+Asheville scheduled data is on [Open Data Portal](http://data-avl.opendata.arcgis.com/). (Search for GTFS) 
+[Direct link](http://data.trilliumtransit.com/gtfs/asheville-nc-us/asheville-nc-us.zip)
+
 Tables needed:
-calendar
-calendar_dates
-routes
-stop_times
-stops
-trips
+* calendar
+* calendar_dates
+* routes
+* stop_times
+* stops
+* trips
 
 ## Live data (Swiftly)
-Live data comes from goswift.ly
+Live data comes from goswift.ly. An API Key is necessary.
