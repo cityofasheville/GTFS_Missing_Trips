@@ -11,7 +11,7 @@ function send_report(data, start_date, end_date) {
 
 module.exports = send_report;
 
-function cvsify(data) {
+function cvsify(data) { //sorry, cheesy but easy
   return JSON.stringify(data)
   .replace(/\},\{"trip_id":/g,'\n')
   .replace(/"route_short_name":/g,'')

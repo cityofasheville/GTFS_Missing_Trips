@@ -9,7 +9,7 @@ function get_swiftly(start_date, end_date){
   end_date = swiftDate(end_date);
   return new Promise(function(resolve, reject) {
     const output = [];
-    const path = `/otp/art-asheville/csv-export?startDate=${start_date}&endDate=${end_date}`
+    const path = `/otp/${process.env.swiftly_agency_key}/csv-export?startDate=${start_date}&endDate=${end_date}`
     const http_options = {
       "method": "GET",
       "hostname": "api.goswift.ly",
