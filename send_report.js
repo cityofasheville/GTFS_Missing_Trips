@@ -3,7 +3,7 @@ const fs = require('fs');
 function send_report(data, start_date, end_date) {
   console.log(start_date, end_date);
   let filename = start_date + '%' + end_date + '.csv';
-  fs.writeFile(filename, cvsify(data), (err) => {    
+  fs.writeFile(filename, csvify(data), (err) => {    
     if (err) throw err;
     console.log('Report saved to ' + filename);
   });
@@ -11,7 +11,7 @@ function send_report(data, start_date, end_date) {
 
 module.exports = send_report;
 
-function cvsify(data) { //sorry, cheesy but easy
+function csvify(data) { //sorry, cheesy but easy
   return JSON.stringify(data)
   .replace(/\},\{"trip_id":/g,'\n')
   .replace(/"route_short_name":/g,'')
