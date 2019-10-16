@@ -24,7 +24,7 @@ BEGIN
 		ON trips.trip_id = stop_times.trip_id
 		INNER JOIN gtfs.stops
 		ON stop_times.stop_id = stops.stop_id	
-		where scheduled_calendar.date BETWEEN '2019-08-23' and '2019-08-23' --start_date AND end_date
+		where scheduled_calendar.date BETWEEN start_date AND end_date
 		and stop_times.departure_time is not null
 		order by routes.route_short_name, scheduled_calendar.date, stop_times.departure_time
 	) AS scheduled
