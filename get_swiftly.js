@@ -1,4 +1,4 @@
-const http = require("https");
+const https = require("https");
 const parse = require('csv-parse');
 
 require('dotenv').config();
@@ -37,7 +37,7 @@ function get_swiftly(start_date, end_date){
       resolve(output);
     })
 
-    const req = http.request(http_options, function (res) {
+    const req = https.request(http_options, function (res) {
       res.on("data", function (chunk) {
         parser.write(chunk.toString().replace(/\n\n/g,'')); //the replace is to get rid of extraneous newlines at end of Swiftly data
       });

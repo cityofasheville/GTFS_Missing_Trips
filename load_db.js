@@ -3,7 +3,7 @@ const send_report = require("./send_report");
 
 require('dotenv').config();
 
-async function load_db(current_data, gtfs, start_date, end_date) {
+async function load_db(real_time_data, gtfs, start_date, end_date) {
   let pool = new Pool({
       host: process.env.host,
       user: process.env.user,
@@ -14,25 +14,38 @@ async function load_db(current_data, gtfs, start_date, end_date) {
       //  ssl: true,
   });
   // Load tables
-  await build_queries(current_data, 'gtfs.current_data', dates11and13);
-  await build_queries(gtfs.calendar, 'gtfs.calendar');
-  await build_queries(gtfs.calendar_dates, 'gtfs.calendar_dates', date1T);
-  await build_queries(gtfs.routes, 'gtfs.routes');
-  await build_queries(gtfs.stop_times, 'gtfs.stop_times', times1and2);
-  await build_queries(gtfs.stops, 'gtfs.stops');
-  await build_queries(gtfs.trips, 'gtfs.trips');
+  await load_real_time_data(real_time_data, 'r_transit.real_time_data', start_date, end_date, dates11and13);
+  await overwrite_data(gtfs.calendar, 'r_transit.gtfs_calendar');
+  await overwrite_data(gtfs.calendar_dates, 'r_transit.gtfs_calendar_dates', date1T);
+  await overwrite_data(gtfs.routes, 'r_transit.gtfs_routes');
+  await overwrite_data(gtfs.stop_times, 'r_transit.gtfs_stop_times', times1and2);
+  await overwrite_data(gtfs.stops, 'r_transit.gtfs_stops');
+  await overwrite_data(gtfs.trips, 'r_transit.gtfs_trips');
 
   // Create scheduled_calendar table
-  await run_query("select gtfs.create_scheduled_calendar()");
-  let results = await run_query(`
-  select trip_id,route_short_name,direction_id,stop_name,date,departure_time 
-  from gtfs.output_report($1, $2)`, 
-  [start_date, end_date]);
-  send_report(results.rows, start_date, end_date);
+  await run_query("select r_transit.gtfs_create_scheduled_calendar()");
 
   // -------------------------------------------------------------
-  async function build_queries(data, table_name, repair_function) {
+  async function load_real_time_data(data, table_name, start_date, end_date, repair_function) {
+    let delquery = "DELETE FROM " + table_name + " WHERE scheduled_date BETWEEN '" + start_date + "' AND '" + end_date + "'";
+    await run_query(delquery);
+    if(repair_function) { 
+      append_data(data, table_name, repair_function); 
+    } else {
+      append_data(data, table_name); 
+    }
+  }
+
+  async function overwrite_data(data, table_name, repair_function) {
     await run_query("DELETE FROM " + table_name);
+    if(repair_function) { 
+      append_data(data, table_name, repair_function); 
+    } else {
+      append_data(data, table_name); 
+    }
+  }
+
+  async function append_data(data, table_name, repair_function) {
     let query_header = "INSERT INTO " + table_name + "(" + data[0].join(',') + ") VALUES ";
     let chunksOf100 = chunkArray(data.slice(1));
     chunksOf100.forEach(async (chunk) => {
@@ -107,7 +120,6 @@ function chunkArray(data){
   }
   return results;
 }
-
 
 module.exports = load_db;
 

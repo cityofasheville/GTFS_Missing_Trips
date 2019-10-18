@@ -7,7 +7,7 @@ require('dotenv').config();
 
 function get_gtfs(table_list){
   return new Promise(function(resolve, reject) {
-    const zipfilename = "data/asheville-nc-us.zip";
+    const zipfilename = "asheville-nc-us.zip";
     const file = fs.createWriteStream(zipfilename);
     http.get(process.env.gtfs_url, function(response) {
       const { statusCode } = response;
