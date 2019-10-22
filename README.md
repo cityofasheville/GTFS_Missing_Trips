@@ -35,3 +35,9 @@ Tables needed:
 
 ## Live data (Swiftly)
 Live data comes from goswift.ly. An API Key is necessary.
+
+## dbload branch
+The git branch dbload is deployed on coa-gis-fme2. It does just the data load part of the above, which
+allows a simple db view (and later a report) for the final report.
+
+select * from r_transit.missing_trips_report_view where date between '2019-10-16' and '2019-10-31'
