@@ -1,7 +1,7 @@
 const get_gtfs = require('./get_gtfs');
 const fs = require('fs');
 
-async function run(){
+(async function run(){
   let table_list = ['calendar','calendar_dates','routes','stop_times','stops','trips'];
   // let table_list = ['stop_times','calendar_dates']
 
@@ -11,6 +11,5 @@ async function run(){
     if (err) throw err;
     console.log('file saved');
   });
-}
-run();
+})();
 
