@@ -9,6 +9,12 @@ Reads in files from scheduled bus routes and actual trips driven.
 1. Copy .env.example to a new file .env and fill in the database and website credentials.
 1. Install node.js and run `npm install` in the program directory.
 
+## Running
+This runs for yesterday:
+    node .
+This runs for given date range:
+    node . 2019-12-27 2019-12-27
+
 ## DB Load
 This is deployed on coa-gis-fme2. It loads the data nightly, which
 allows a simple db view (and later a report) for the final report.
