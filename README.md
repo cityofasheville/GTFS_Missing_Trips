@@ -13,14 +13,14 @@ Reads in files from scheduled bus routes and actual trips driven.
 This runs for yesterday:
     node .
 This runs for given date range:
-    node . 2019-12-27 2019-12-27
+    node . 2020-05-01 2020-05-31
 
 ## DB Load
 This is deployed on coa-gis-fme2. It loads the data nightly, which
 allows a simple db view (and later a report) for the final report.
 
 ## Final output (TODO: use GDS for report)
-select * from r_transit.missing_trips_report_view where date between '2019-10-16' and '2019-10-31'
+select * from r_transit.missing_trips_report_view where date between '2020-05-01' and '2020-05-17'
 * trip_id
 * route_short_name
 * direction_id
