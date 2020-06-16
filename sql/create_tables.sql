@@ -157,3 +157,26 @@ CREATE TABLE r_transit.gtfs_trips (
 	continuous_pickup_message varchar NULL,
 	continuous_drop_off_message varchar NULL
 );
+
+-- DROP TABLE r_transit.real_time_data;
+
+CREATE TABLE r_transit.real_time_data (
+	block_id varchar NULL,
+	trip_id varchar NULL,
+	route_id int4 NULL,
+	route_short_name varchar NULL,
+	direction_id int4 NULL,
+	stop_id varchar NULL,
+	stop_name varchar NULL,
+	headsign varchar NULL,
+	vehicle_id varchar NULL,
+	driver_id varchar NULL,
+	gtfs_stop_seq varchar NULL,
+	start_time varchar NULL,
+	sched_adherence_secs varchar NULL,
+	scheduled_date date NULL,
+	scheduled_time time NULL,
+	actual_date date NULL,
+	actual_time time NULL,
+	is_arrival varchar NULL
+);
