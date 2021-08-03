@@ -1,9 +1,9 @@
 
 -- Drop table
 
--- DROP TABLE r_transit.gtfs_calendar;
+-- DROP TABLE gtfs.gtfs_calendar;
 
-CREATE TABLE r_transit.gtfs_calendar (
+CREATE TABLE gtfs.gtfs_calendar (
 	service_id varchar NULL,
 	service_name varchar NULL,
 	monday bool NULL,
@@ -20,9 +20,9 @@ CREATE TABLE r_transit.gtfs_calendar (
 
 -- Drop table
 
--- DROP TABLE r_transit.gtfs_calendar_dates;
+-- DROP TABLE gtfs.gtfs_calendar_dates;
 
-CREATE TABLE r_transit.gtfs_calendar_dates (
+CREATE TABLE gtfs.gtfs_calendar_dates (
 	service_id varchar NULL,
 	"date" date NULL,
 	holiday_name varchar NULL,
@@ -31,9 +31,9 @@ CREATE TABLE r_transit.gtfs_calendar_dates (
 
 -- Drop table
 
--- DROP TABLE r_transit.gtfs_current_data;
+-- DROP TABLE gtfs.gtfs_current_data;
 
-CREATE TABLE r_transit.gtfs_current_data (
+CREATE TABLE gtfs.gtfs_current_data (
 	block_id varchar NULL,
 	trip_id varchar NULL,
 	route_id int4 NULL,
@@ -54,9 +54,9 @@ CREATE TABLE r_transit.gtfs_current_data (
 
 -- Drop table
 
--- DROP TABLE r_transit.gtfs_routes;
+-- DROP TABLE gtfs.gtfs_routes;
 
-CREATE TABLE r_transit.gtfs_routes (
+CREATE TABLE gtfs.gtfs_routes (
 	agency_id varchar(20) NULL,
 	route_id int4 NULL,
 	route_short_name varchar(50) NULL,
@@ -76,9 +76,9 @@ CREATE TABLE r_transit.gtfs_routes (
 
 -- Drop table
 
--- DROP TABLE r_transit.gtfs_scheduled_calendar;
+-- DROP TABLE gtfs.gtfs_scheduled_calendar;
 
-CREATE TABLE r_transit.gtfs_scheduled_calendar (
+CREATE TABLE gtfs.gtfs_scheduled_calendar (
 	service_id varchar NOT NULL,
 	"date" date NOT NULL,
 	CONSTRAINT scheduled_calendar_pkey PRIMARY KEY (service_id, date)
@@ -86,9 +86,9 @@ CREATE TABLE r_transit.gtfs_scheduled_calendar (
 
 -- Drop table
 
--- DROP TABLE r_transit.gtfs_stop_times;
+-- DROP TABLE gtfs.gtfs_stop_times;
 
-CREATE TABLE r_transit.gtfs_stop_times (
+CREATE TABLE gtfs.gtfs_stop_times (
 	trip_id varchar NULL,
 	arrival_time time NULL,
 	departure_time time NULL,
@@ -113,9 +113,9 @@ CREATE TABLE r_transit.gtfs_stop_times (
 
 -- Drop table
 
--- DROP TABLE r_transit.gtfs_stops;
+-- DROP TABLE gtfs.gtfs_stops;
 
-CREATE TABLE r_transit.gtfs_stops (
+CREATE TABLE gtfs.gtfs_stops (
 	stop_id varchar(20) NULL,
 	stop_code varchar(20) NULL,
 	platform_code varchar(20) NULL,
@@ -135,9 +135,9 @@ CREATE TABLE r_transit.gtfs_stops (
 
 -- Drop table
 
--- DROP TABLE r_transit.gtfs_trips;
+-- DROP TABLE gtfs.gtfs_trips;
 
-CREATE TABLE r_transit.gtfs_trips (
+CREATE TABLE gtfs.gtfs_trips (
 	route_id int4 NULL,
 	service_id varchar NULL,
 	trip_id varchar NULL,
@@ -158,9 +158,9 @@ CREATE TABLE r_transit.gtfs_trips (
 	continuous_drop_off_message varchar NULL
 );
 
--- DROP TABLE r_transit.real_time_data;
+-- DROP TABLE gtfs.real_time_data;
 
-CREATE TABLE r_transit.real_time_data (
+CREATE TABLE gtfs.real_time_data (
 	block_id varchar NULL,
 	trip_id varchar NULL,
 	route_id int4 NULL,

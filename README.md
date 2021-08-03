@@ -20,7 +20,7 @@ This is deployed on coa-gis-fme2. It loads the data nightly, which
 allows a simple db view (and later a report) for the final report.
 
 ## Final output (TODO: use ??? for report)
-select * from r_transit.missing_trips_report_view where date between '2020-05-01' and '2020-05-17'
+select * from gtfs.missing_trips_report_view where date between '2020-05-01' and '2020-05-17'
 * trip_id
 * route_short_name
 * direction_id

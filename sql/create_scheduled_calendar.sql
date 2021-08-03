@@ -1,13 +1,13 @@
-CREATE OR REPLACE FUNCTION r_transit.gtfs_create_scheduled_calendar()
+CREATE OR REPLACE FUNCTION gtfs.gtfs_create_scheduled_calendar()
  RETURNS void
  LANGUAGE plpgsql
 AS $function$
 DECLARE 
     rec_cal   RECORD;
 	num_dates INT;
-    cur_cal CURSOR FOR SELECT * FROM r_transit.gtfs_calendar;
+    cur_cal CURSOR FOR SELECT * FROM gtfs.gtfs_calendar;
 BEGIN
-	DELETE FROM r_transit.scheduled_calendar;
+	DELETE FROM gtfs.scheduled_calendar;
 	OPEN cur_cal;
     LOOP
         FETCH cur_cal INTO rec_cal;
@@ -15,7 +15,7 @@ BEGIN
 		
 		SELECT DATE_PART('day', rec_cal.end_date::timestamp - rec_cal.start_date::timestamp) INTO num_dates;
         
-		INSERT INTO r_transit.scheduled_calendar(service_id,date)
+		INSERT INTO gtfs.scheduled_calendar(service_id,date)
         SELECT service_id, dates FROM (
             SELECT service_id, dates, extract(dow from dates) AS dow FROM (
                 SELECT rec_cal.service_id, rec_cal.start_date + s.a AS dates FROM generate_series(0,num_dates) AS s(a) 
@@ -33,17 +33,17 @@ BEGIN
     CLOSE cur_cal;
 
     -- remove holidays
-    delete from r_transit.scheduled_calendar sch 
-    using r_transit.gtfs_calendar_dates dts
+    delete from gtfs.scheduled_calendar sch 
+    using gtfs.gtfs_calendar_dates dts
     where sch.service_id = dts.service_id
     and sch.date = dts.date
     and exception_type = 2;
 
     -- add holidays
-    insert into r_transit.scheduled_calendar(service_id, date) 
+    insert into gtfs.scheduled_calendar(service_id, date) 
     select dt.service_id, dt.date
-    from r_transit.gtfs_calendar_dates dt
-    left join r_transit.scheduled_calendar sc
+    from gtfs.gtfs_calendar_dates dt
+    left join gtfs.scheduled_calendar sc
     on dt.service_id = sc.service_id 
     and dt."date" = sc."date" 
     where exception_type = 1

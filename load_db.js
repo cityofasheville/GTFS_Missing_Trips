@@ -14,16 +14,16 @@ async function load_db(real_time_data, gtfs, start_date, end_date) {
       //  ssl: true,
   });
   // Load tables
-  await load_real_time_data(real_time_data, 'r_transit.real_time_data', start_date, end_date, dates11and13);
-  await overwrite_data(gtfs.calendar, 'r_transit.gtfs_calendar');
-  await overwrite_data(gtfs.calendar_dates, 'r_transit.gtfs_calendar_dates', date1T);
-  await overwrite_data(gtfs.routes, 'r_transit.gtfs_routes');
-  await overwrite_data(gtfs.stop_times, 'r_transit.gtfs_stop_times', times1and2);
-  await overwrite_data(gtfs.stops, 'r_transit.gtfs_stops');
-  await overwrite_data(gtfs.trips, 'r_transit.gtfs_trips');
+  await load_real_time_data(real_time_data, 'gtfs.real_time_data', start_date, end_date, dates11and13);
+  await overwrite_data(gtfs.calendar, 'gtfs.gtfs_calendar');
+  await overwrite_data(gtfs.calendar_dates, 'gtfs.gtfs_calendar_dates', date1T);
+  await overwrite_data(gtfs.routes, 'gtfs.gtfs_routes');
+  await overwrite_data(gtfs.stop_times, 'gtfs.gtfs_stop_times', times1and2);
+  await overwrite_data(gtfs.stops, 'gtfs.gtfs_stops');
+  await overwrite_data(gtfs.trips, 'gtfs.gtfs_trips');
 
   // Create scheduled_calendar table
-  await run_query("select r_transit.gtfs_create_scheduled_calendar()");
+  await run_query("select gtfs.gtfs_create_scheduled_calendar()");
 
   // -------------------------------------------------------------
   async function load_real_time_data(data, table_name, start_date, end_date, repair_function) {
